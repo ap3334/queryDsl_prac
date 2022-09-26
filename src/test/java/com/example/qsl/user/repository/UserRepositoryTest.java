@@ -38,4 +38,17 @@ class UserRepositoryTest {
         assertThat(u1.getEmail()).isEqualTo("user1@test.com");
 
     }
+
+    @Test
+    @DisplayName("2번 회원을 querydsl로 가져오기")
+    void t3() {
+
+        SiteUser u1 = userRepository.getQslUser(2L);
+
+        assertThat(u1.getId()).isEqualTo(2L);
+        assertThat(u1.getUsername()).isEqualTo("user2");
+        assertThat(u1.getPassword()).isEqualTo("{noop}1234");
+        assertThat(u1.getEmail()).isEqualTo("user2@test.com");
+
+    }
 }
