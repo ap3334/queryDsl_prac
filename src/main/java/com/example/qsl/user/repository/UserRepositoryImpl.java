@@ -5,6 +5,8 @@ import com.example.qsl.user.entity.SiteUser;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
+import static com.example.qsl.user.entity.QSiteUser.*;
+
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepositoryCustom {
 
@@ -13,9 +15,9 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     @Override
     public SiteUser getQslUser(Long id) {
         return jpaQueryFactory
-                .select(QSiteUser.siteUser)
-                .from(QSiteUser.siteUser)
-                .where(QSiteUser.siteUser.id.eq(id))
+                .select(siteUser)
+                .from(siteUser)
+                .where(siteUser.id.eq(id))
                 .fetchOne();
     }
 
