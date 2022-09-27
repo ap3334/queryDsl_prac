@@ -1,5 +1,6 @@
 package com.example.qsl.user.repository;
 
+import com.example.qsl.interestKeyword.entity.QInterestKeyword;
 import com.example.qsl.user.entity.QSiteUser;
 import com.example.qsl.user.entity.SiteUser;
 import com.querydsl.core.types.Order;
@@ -111,6 +112,16 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
     @Override
     public List<SiteUser> getQslUserByInterestKeyword(String keywordContent) {
+
+        QInterestKeyword IK = new QInterestKeyword("IK");
+
+        return jpaQueryFactory
+                .selectFrom(siteUser)
+                .innerJoin(siteUser.interestKeywords, IK)
+                .where(
+                        IK.content.eq(keywordContent)
+                )
+                .fetch();
 
 
     }
