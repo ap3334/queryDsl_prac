@@ -89,7 +89,7 @@ class UserRepositoryTest {
 
     @Test
     @DisplayName("가장 오래된 순으로")
-    void t5() {
+    void t6() {
         List<SiteUser> siteUsers = userRepository.getQslUsersOrderById();
 
         SiteUser u1 = siteUsers.get(0);
@@ -105,6 +105,35 @@ class UserRepositoryTest {
         assertThat(u2.getUsername()).isEqualTo("user2");
         assertThat(u2.getPassword()).isEqualTo("{noop}1234");
         assertThat(u2.getEmail()).isEqualTo("user2@test.com");
+    }
+
+    @Test
+    @DisplayName("검색, List 리턴")
+    void t7() {
+        // 검색대상 : username, email
+        // user1 로 검색
+        List<SiteUser> users = userRepository.searchQsl("user1");
+
+        assertThat(users.size()).isEqualTo(1);
+
+        SiteUser u = users.get(0);
+
+        assertThat(u.getId()).isEqualTo(1L);
+        assertThat(u.getUsername()).isEqualTo("user1");
+        assertThat(u.getEmail()).isEqualTo("user1@test.com");
+        assertThat(u.getPassword()).isEqualTo("{noop}1234");
+
+        // user2 로 검색
+        users = userRepository.searchQsl("user2");
+
+        assertThat(users.size()).isEqualTo(1);
+
+        u = users.get(0);
+
+        assertThat(u.getId()).isEqualTo(2L);
+        assertThat(u.getUsername()).isEqualTo("user2");
+        assertThat(u.getEmail()).isEqualTo("user2@test.com");
+        assertThat(u.getPassword()).isEqualTo("{noop}1234");
     }
 
 }

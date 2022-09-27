@@ -13,4 +13,6 @@ public interface UserRepositoryCustom {
     SiteUser getQslUserOrderByIdAscOne();
 
     List<SiteUser> getQslUsersOrderById();
+
+    List<SiteUser> searchQsl(String kw);
 }
