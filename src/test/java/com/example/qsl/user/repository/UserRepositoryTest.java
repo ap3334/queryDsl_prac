@@ -9,6 +9,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -74,4 +75,36 @@ class UserRepositoryTest {
         assertThat(count).isGreaterThan(0);
 
     }
+
+    @Test
+    @DisplayName("가장 오래된 회원 1명")
+    void t5() {
+        SiteUser u1 = userRepository.getQslUserOrderByIdAscOne();
+
+        assertThat(u1.getId()).isEqualTo(1L);
+        assertThat(u1.getUsername()).isEqualTo("user1");
+        assertThat(u1.getPassword()).isEqualTo("{noop}1234");
+        assertThat(u1.getEmail()).isEqualTo("user1@test.com");
+    }
+
+    @Test
+    @DisplayName("가장 오래된 순으로")
+    void t5() {
+        List<SiteUser> siteUsers = userRepository.getQslUsersOrderById();
+
+        SiteUser u1 = siteUsers.get(0);
+
+        assertThat(u1.getId()).isEqualTo(1L);
+        assertThat(u1.getUsername()).isEqualTo("user1");
+        assertThat(u1.getPassword()).isEqualTo("{noop}1234");
+        assertThat(u1.getEmail()).isEqualTo("user1@test.com");
+
+        SiteUser u2 = siteUsers.get(1);
+
+        assertThat(u2.getId()).isEqualTo(2L);
+        assertThat(u2.getUsername()).isEqualTo("user2");
+        assertThat(u2.getPassword()).isEqualTo("{noop}1234");
+        assertThat(u2.getEmail()).isEqualTo("user2@test.com");
+    }
+
 }
