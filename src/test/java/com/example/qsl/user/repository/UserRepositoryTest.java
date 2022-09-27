@@ -64,4 +64,14 @@ class UserRepositoryTest {
         assertThat(u1.getEmail()).isEqualTo("user2@test.com");
 
     }
+
+    @Test
+    @DisplayName("전체 회원 수")
+    void t4() {
+
+        long count = userRepository.getQslCount();
+
+        assertThat(count).isGreaterThan(0);
+
+    }
 }
