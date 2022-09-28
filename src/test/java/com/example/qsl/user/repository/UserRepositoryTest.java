@@ -262,4 +262,31 @@ class UserRepositoryTest {
         userRepository.save(u2);
 
     }
+
+    @Test
+    @DisplayName("본인은 본인을 follow할 수 없다.")
+    void t14() {
+
+        SiteUser u1 = userRepository.getQslUser(1L);
+
+        u1.follow(u1);
+
+        assertThat(u1.getFollowers().size()).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("특정 회원의 followers들과 following들을 모두 알 수 있어야 한다.")
+    void t15() {
+
+        SiteUser u1 = userRepository.getQslUser(1L);
+        SiteUser u2 = userRepository.getQslUser(2L);
+
+        u1.follow(u2);
+
+        assertThat(u1.getFollowers().size()).isEqualTo(0);
+        assertThat(u1.getFollowings().size()).isEqualTo(1);
+
+        assertThat(u2.getFollowers().size()).isEqualTo(1);
+        assertThat(u2.getFollowings().size()).isEqualTo(0);
+    }
 }
