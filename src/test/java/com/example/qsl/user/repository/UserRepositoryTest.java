@@ -233,4 +233,21 @@ class UserRepositoryTest {
         assertThat(u.getPassword()).isEqualTo("{noop}1234");
 
     }
+
+    @Test
+    @DisplayName("no sql, 축구에 관심이 있는 회원들 검색")
+    void t12() {
+
+        List<SiteUser> users = userRepository.findByInterestKeywords_content("축구");
+
+        assertThat(users.size()).isEqualTo(1);
+
+        SiteUser u = users.get(0);
+
+        assertThat(u.getId()).isEqualTo(1L);
+        assertThat(u.getUsername()).isEqualTo("user1");
+        assertThat(u.getEmail()).isEqualTo("user1@test.com");
+        assertThat(u.getPassword()).isEqualTo("{noop}1234");
+
+    }
 }
